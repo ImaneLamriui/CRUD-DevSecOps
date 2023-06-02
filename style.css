@@ -1,0 +1,37 @@
+/** @format */
+
+.col {
+  width: 200px;
+} 
+
+ body {
+  color: rgb(194, 192, 194);
+}
+h1 {
+  text-align: center;
+}
+div.container {
+  width: 40em;
+
+  text-align: center;
+}
+div .darkgray {
+  background-color: grey;
+}
+
+div {
+  height: 3em;
+} 
+ p input {
+  float: right;
+}
+.float_l {
+  float: left;
+}
+input .medidas {
+  height: 100px;
+}
+.center {
+  margin-top: 0px;
+  
+}
