@@ -19,11 +19,11 @@
     <?php
     //include 'crear.php';
     $servidor = "localhost";
-    $usuario = "dev";
-    $password = "mysql";
-    $basedatos = "proyecto";
-    
-   //Establecer la conexión con MySQL
+    $usuario = "root";
+    $password = "";
+    $basedatos = "productos";
+
+    //Establecer la conexión con MySQL
 
     try {
       $conexion = new PDO("mysql:host=$servidor;dbname=$basedatos", $usuario, $password);
@@ -61,14 +61,16 @@
     foreach ($filas as $fila) {
       echo "<tr>";
 
-      echo "<td><a href='detalle.php?id=" . $fila['id'] . "'><input type='submit' value='Detalle' class='btn btn-info float_l' /></a></td>
-           
-           <td class='text-center'> '{$fila['id']}'</td> 
-           <td class='text-center'>'{$fila['nombre']}'</td>
+      echo "<td>
+      <a href='detalle.php?id=" . $fila['id'] . "' class='btn btn-info float_l'>Detalle</a>
+  </td>
+  <td class='text-center'>" . $fila['id'] . "</td> 
+  <td class='text-center'>" . $fila['nombre'] . "</td>
+  <td>
+      <a href='update.php?id=" . $fila['id'] . "' class='btn btn-warning float'>Actualizar</a>
+      <a href='borrar.php?id=" . $fila['id'] . "' class='btn btn-danger float'>Borrar</a>
+  </td>";
 
-           <td> <a href='update.php?id=" . $fila['id'] . "'><input type='submit'value='Actualizar'class='btn btn-warning float'/></a>
-      
-           <a href='borrar.php?id=" . $fila['id'] . "'><input type='submit' value='Borrar' class='btn btn-danger float'/></a></td>";
 
       // botón modificaaarr en el formulario 2 sera el de actualizar
       //   <!-- echo "<a href='borrar.php?id=" . $fila['id_objetivo'] . "'><button class='botonBorrar'>Borrar</button></a><strong>"; --> 
