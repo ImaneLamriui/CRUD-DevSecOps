@@ -2,9 +2,9 @@
 
 //Creo las variables de conexión a MySQL
 $servidor = "localhost";
-$usuario = "dev";
-$password = "mysql";
-$basedatos = "proyecto";
+$usuario = "root";
+$password = "";
+$basedatos = "productos";
 
 //Establecer la conexión con MySQL
 
