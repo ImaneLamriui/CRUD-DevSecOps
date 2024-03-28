@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-  <title>DWES03_TAREA_FICHERO_crear.php</title>
+  <title>update.php</title>
 </head>
 
 <body class="card text-bg-info" style="border:none;"> <!--podemos remplazar esta clase con : style="background:aqua;"-->
@@ -24,19 +24,19 @@
       require_once 'conexion.php';
 
       if ($_GET) {
+        //Sanitización del código para evitar ataques XSS
+        //$id = $_GET['id'];
+        $id = htmlspecialchars($_GET['id']);
+        //utilizar las consultas parametrizadas
+        $sql = $conexion->prepare("SELECT nombre,nombre_corto,descripcion,pvp,familia  FROM productos WHERE id = ?");
+        $sql->execute([$id]);
+        //$sql->execute();
 
-        $id = $_GET['id'];
 
-
-        $sql = $conexion->prepare("SELECT nombre,nombre_corto,descripcion,pvp,familia  FROM productos WHERE id = $id");
-
-        $sql->execute();
-
-
-        $detalles1 = $sql->fetchAll();
+        $detalles1 = $sql->fetchAll(PDO::FETCH_ASSOC);
         foreach ($detalles1 as $detalle) {
-
-          echo "<br><h5>{$detalle['nombre']} , id : $id</h5><br>";
+          echo "<br><h5>" . htmlspecialchars($detalle['nombre']) . " , id: $id</h5><br>";
+          //echo "<br><h5>{$detalle['nombre']} , id : $id</h5><br>";
         }
         echo "<div class='row m-3'>";
         echo "<div class='col'>";
@@ -87,41 +87,51 @@
         echo "<p class='text-center'>";
         //print_r($detalle['descripcion']);
       ?>
-        <a <?php echo $_SERVER['PHP_SELF']; ?>><input type='submit' class='botones_update btn btn-success' value='Modificar' name='Modificar'></a>
-        <a href='listado.php'><input type='submit' class='botones_update btn btn-success me-2' value='Volver' name='Volver'></a>
+        <form action="listado.php" method="POST">
+
+          <input type='submit' class='botones_update btn btn-success' value='Modificar' name='Modificar'>
+          <input type='submit' class='botones_update btn btn-success me-2' value='Volver' name='Volver'>
+        </form>
+
   </div>
 
 <?php
 
       };
-      //aqui hay que hacer el formulario de lapagina update y al pulsar modificar se ejecutará la sentencia sql de la variable $sql
+
+      // Incluir el archivo de conexión
       require_once 'conexion.php';
 
-
-      $id = $_GET['id'];
-
+      // Verificar si se recibió un POST
       if ($_POST) {
+        // Obtener el ID del producto desde la URL
+        $id = $_GET['id'];
 
+        // Obtener los datos del formulario
         $detalle['nombre'] = $_POST['nombre'];
         $detalle['nombre_corto'] = $_POST['nombre_corto'];
         $detalle['descripcion'] = $_POST['descripcion'];
         $detalle['pvp'] = $_POST['pvp'];
         $detalle['familia'] = $_POST['familia'];
 
-        $sql = $conexion->prepare("UPDATE productos SET pvp= {$detalle['pvp']}  WHERE id= $id");
+        // Preparar la consulta SQL con marcadores de posición
+        $sql = $conexion->prepare("UPDATE productos SET nombre = ?, nombre_corto = ?, descripcion = ?, pvp = ?, familia = ? WHERE id = ?");
 
+        // Ejecutar la consulta con los valores correspondientes
+        session_start(); // Iniciar la sesión si aún no está iniciada
 
-        // $sql1 = $conexion->prepare("UPDATE productos SET nombre= {$detalle['nombre']}, nombre_corto= {$detalle['nombre_corto']} ,descripcion= {$detalle['descripcion']}, pvp= {$detalle['pvp']}, familia= {$detalle['familia']}  WHERE id= $id" );
-
-        if ($sql->execute()) {
-          echo "<h1 style='color:red;'>Actualizado</h1>";
+        // Ejecutar la consulta con los valores correspondientes
+        if ($sql->execute([$detalle['nombre'], $detalle['nombre_corto'], $detalle['descripcion'], $detalle['pvp'], $detalle['familia'], $id])) {
+          // Si la consulta se ejecuta correctamente
+          $_SESSION['mensaje'] = "Producto actualizado correctamente.";
+          echo "<script>alert('Producto actualizado correctamente.'); window.location.href='listado.php';</script>";
         } else {
-          echo "Fallido";
+          // Si la consulta falla
+          $_SESSION['mensaje'] = "Error al actualizar el producto.";
+          echo "<script>alert('Error al actualizar el producto.'); window.location.href='listado.php';</script>";
         }
       }
-
 ?>
-
 
 
 </form>
