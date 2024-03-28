@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-  <title>DWES03_TAREA_FICHERO_crear.php</title>
+  <title>crear.php</title>
 </head>
 
 
@@ -52,7 +52,8 @@
             $familias = $consulta3->fetchAll();
 
             foreach ($familias as $fila) {
-              echo "<option value='{$fila['cod']}'>" . $fila['nombre'] . "</option>";
+              echo "<option value='" . htmlspecialchars($fila['cod']) . "'>" . htmlspecialchars($fila['nombre']) . "</option>";
+              // "<option value='{$fila['cod']}'>" . $fila['nombre'] . "</option>";
             }
             ?>
           </select>
@@ -76,42 +77,40 @@
           </div>
 
           <?php
-
           require_once 'conexion.php';
+          // evitar la ejecución del código de inserción si no se ha enviado el formulario.
+          // Sanitización del código para prevenir ataques XSS
+          if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-          if ($_POST) {
+            $nombre = htmlspecialchars($_POST['nombre']);
+            $nombre_corto = htmlspecialchars($_POST['nombre_corto']);
+            $descripcion = htmlspecialchars($_POST['descripcion']);
+            $pvp = htmlspecialchars($_POST['pvp']);
+            $familia = htmlspecialchars($_POST['familia']);
 
+            $consulta = $conexion->prepare("INSERT INTO productos (nombre, nombre_corto, descripcion, pvp, familia) VALUES (?, ?, ?, ?, ?)");
+            $consulta->execute([$nombre, $nombre_corto, $descripcion, $pvp, $familia]);
 
-            //print_r($_POST);
-
-            $consulta = $conexion->prepare("INSERT INTO productos (id,nombre, nombre_corto, descripcion,pvp,familia) VALUES(NULL,:nombre,:nombre_corto,:descripcion,:pvp,:familia)");
-            $consulta->bindParam(':nombre', $nombre);
-            $consulta->bindParam(':nombre_corto', $nombrecorto);
-            $consulta->bindParam(':descripcion', $descripcion);
-            $consulta->bindParam(':pvp', $pvp);
-            $consulta->bindParam(':familia', $fila['cod']);
-
-            $nombre = $_POST['nombre'];
-            $nombrecorto = $_POST['nombre_corto'];
-            $descripcion = $_POST['descripcion'];
-            $pvp = $_POST['pvp'];
-            $fila['cod'] = $_POST['familia'];
-            print_r($pvp);
-            print_r($fila['cod']);
-            $consulta->execute();
-
-            //  $id=$conexion->lastInsertId();
-
+            if ($consulta->rowCount() > 0) {
+              echo "Registro agregado correctamente.";
+            } else {
+              echo "Error al agregar el registro.";
+            }
+            // Ejecutar la consulta con los valores correspondientes
             if ($consulta->execute()) {
-              echo "Registro agregado...";
+              // Si la consulta se ejecuta correctamente
+              $_SESSION['mensaje'] = "Producto creado correctamente.";
+              echo "<script>alert('Producto creado correctamente.'); window.location.href='listado.php';</script>";
+            } else {
+              // Si la consulta falla
+              $_SESSION['mensaje'] = "Error al crear el producto.";
+              echo "<script>alert('Error al crear el producto.'); window.location.href='listado.php';</script>";
             }
           }
-
-          //header('Location:listado.php');
-          //header("Location:?");
           ?>
     </form>
 
+  </div>
 </body>
 
 </html>
