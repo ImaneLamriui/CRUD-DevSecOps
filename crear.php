@@ -9,8 +9,6 @@
   <title>crear.php</title>
 </head>
 
-
-
 <body class="card text-bg-danger" style="border:none;"> <!--podemos remplazar esta clase con : style="background:aqua;"-->
 
 
@@ -45,7 +43,7 @@
 
             <?php
             require_once 'conexion.php';
-            //  <?php echo $_SERVER['PHP_SELF']; 
+            // <?php echo $_SERVER['PHP_SELF']; 
             $consulta3 = $conexion->prepare("select cod, nombre from familias order by cod");
             $resultado3 = $consulta3->execute();
             $resultado3 = $consulta3->setFetchMode(PDO::FETCH_ASSOC);
@@ -53,7 +51,7 @@
 
             foreach ($familias as $fila) {
               echo "<option value='" . htmlspecialchars($fila['cod']) . "'>" . htmlspecialchars($fila['nombre']) . "</option>";
-              // "<option value='{$fila['cod']}'>" . $fila['nombre'] . "</option>";
+              //"<option value='{$fila['cod']}'>" . $fila['nombre'] . "</option>";
             }
             ?>
           </select>
@@ -79,7 +77,7 @@
           <?php
           require_once 'conexion.php';
           // evitar la ejecución del código de inserción si no se ha enviado el formulario.
-          // Sanitización del código para prevenir ataques XSS
+          // Sanitización del código para prevenir ataques XSS and parameterized queries
           if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $nombre = htmlspecialchars($_POST['nombre']);
@@ -98,7 +96,7 @@
             }
             // Ejecutar la consulta con los valores correspondientes
             if ($consulta->execute()) {
-              // Si la consulta se ejecuta correctamente
+            // Si la consulta se ejecuta correctamente
               $_SESSION['mensaje'] = "Producto creado correctamente.";
               echo "<script>alert('Producto creado correctamente.'); window.location.href='listado.php';</script>";
             } else {
