@@ -35,9 +35,9 @@
 
     // if($_POST)
     // {
-
-    echo "<a href='crear.php?id=id' class='btn btn-success mb-2 mt-4' style='width:100px;'>Crear</a>"; //'{$_SERVER['PHP_SELF']}'
-    // en crear hay que incluir insertar
+    //'{$_SERVER['PHP_SELF']}'
+ 
+    echo "<a href='crear.php?id=id' class='btn btn-success mb-2 mt-4' style='width:100px;'>Crear</a>"; 
     echo "<table class='table table-responsive-sm table-dark table-hover text-center table-striped '>";
 
     echo "<thead>";
@@ -51,7 +51,7 @@
 
     $consulta = $conexion->prepare("select id, nombre from productos");
     $consulta->execute();
-    $resultado = $consulta->setFetchMode(PDO::FETCH_ASSOC); //aqui se encuentra el resultado 
+    $resultado = $consulta->setFetchMode(PDO::FETCH_ASSOC); 
     $filas = ($consulta->fetchAll());
     //print_r( $resultado);
     if (!$consulta->execute()) {
@@ -72,8 +72,8 @@
   </td>";
 
 
-      // botón modificaaarr en el formulario 2 sera el de actualizar
-      //   <!-- echo "<a href='borrar.php?id=" . $fila['id_objetivo'] . "'><button class='botonBorrar'>Borrar</button></a><strong>"; --> 
+      
+      
       echo "</tr>";
     }
 
@@ -83,7 +83,7 @@
     echo "</table>";
 
     //$conexion->close();
-    //pegar aqui else
+    
     ?>
 </body>
 
