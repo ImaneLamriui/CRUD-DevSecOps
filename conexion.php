@@ -1,6 +1,6 @@
 <?php
 
-//Creo las variables de conexión a MySQL
+//Crear las variables de conexión a MySQL
 $servidor = "localhost";
 $usuario = "root";
 $password = "";
@@ -11,7 +11,7 @@ $basedatos = "productos";
 try {
 	$conexion = new PDO("mysql:host=$servidor;dbname=$basedatos", $usuario, $password);
 	$conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	//echo"Conexión establecida...";
+//echo"Conexión establecida...";
 } catch (PDOException $error) {
 	echo "Error" . $error->getMessage();
 }
@@ -19,11 +19,12 @@ try {
 //Seleccionamos la Base de Datos
 //mysqli_select_db($conexion,$basedatos); -->
 ?>
-<!-- $servidor = "localhost";
+<!-- 
+	 Otro usuario 
+	 $servidor = "localhost";
 	 $usuario = "dev";
 	 $pass = "mysql";
 	 $basedatos = "proyecto";
-	
-	$conexion = mysqli_connect($servidor,$usuario,$pass) or die("Error de conexión");
-	
-	 mysqli_select_db($conexion,$basedatos); -->
+	 $conexion = mysqli_connect($servidor,$usuario,$pass) or die("Error de conexión");
+	 mysqli_select_db($conexion,$basedatos); 
+-->
