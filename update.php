@@ -68,7 +68,8 @@
         foreach ($familias as $fila) {
 
           echo "<option value='{$fila['nombre']}'>" . $fila['nombre'] . "</option>";
-        } //construir 
+        } 
+      
         echo "</optgroup>";
         echo " </select>  </div>";
         echo "</div>";
@@ -104,10 +105,10 @@
 
       // Verificar si se recibió un POST
       if ($_POST) {
-        // Obtener el ID del producto desde la URL
+      // Obtener el ID del producto desde la URL
         $id = $_GET['id'];
 
-        // Obtener los datos del formulario
+      // Obtener los datos del formulario
         $detalle['nombre'] = $_POST['nombre'];
         $detalle['nombre_corto'] = $_POST['nombre_corto'];
         $detalle['descripcion'] = $_POST['descripcion'];
