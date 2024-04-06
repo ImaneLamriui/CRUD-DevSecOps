@@ -1,6 +1,6 @@
 <?php
 require_once 'conexion.php';
-//Obtenerle con GET o REQUEST
+//Obtenerlo con GET o REQUEST
 if ($_GET) {
   //Utilizar consultas parametrizadas
   //Sanitización de los datos para evitar los ataques XSS
