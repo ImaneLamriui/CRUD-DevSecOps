@@ -7,30 +7,46 @@ $error = "";
 $success = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Obtener los datos del formulario
-    $nombre_usuario = $_POST['nombre_usuario'];
-    $contrasena = $_POST['contrasena'];
+    // Obtener los datos del formulario y aplicar 
+    //trim() eliminar los espacios en blanco adicionales alrededor del nombre de usuario y la contraseña
+    $nombre_usuario = htmlspecialchars(trim($_POST['nombre_usuario']));
+    $contrasena = htmlspecialchars(trim($_POST['contrasena']));
+    
 
-    // Hash de la contraseña
-    $hash_contrasena = password_hash($contrasena, PASSWORD_DEFAULT);
-
-    // Preparar la consulta SQL para verificar si el usuario ya existe
-    $sql_verificar = $conexion->prepare("SELECT id FROM usuarios WHERE nombre_usuario = ?");
-    $sql_verificar->execute([$nombre_usuario]);
-    $resultado_verificar = $sql_verificar->fetch(PDO::FETCH_ASSOC);
-
-    if ($resultado_verificar) {
-        // Si el usuario ya existe, mostrar un mensaje de error
-        $error = "El usuario ya existe.";
+    // Validar longitud mínima y máxima para el nombre de usuario y la contraseña
+    if (strlen($nombre_usuario) < 3 || strlen($nombre_usuario) > 20) {
+        $error = "El nombre de usuario debe tener entre 3 y 20 caracteres.";
+    } elseif (strlen($contrasena) < 8) {
+        $error = "La contraseña debe tener al menos 8 caracteres.";
     } else {
-        // Preparar la consulta SQL para insertar el usuario en la base de datos
-        $sql_insertar = $conexion->prepare("INSERT INTO usuarios (nombre_usuario, contrasena) VALUES (?, ?)");
-
-        // Ejecutar la consulta con los valores correspondientes
-        if ($sql_insertar->execute([$nombre_usuario, $hash_contrasena])) {
-            $success = "Usuario registrado correctamente.";
+        // Validar caracteres permitidos para el nombre de usuario y la contraseña
+        if (!preg_match("/^[a-zA-Z0-9]+$/", $nombre_usuario)) {
+            $error = "El nombre de usuario solo puede contener letras y números.";
+        } elseif (!preg_match("/^[a-zA-Z0-9@#$%^&*]+$/", $contrasena)) {
+            $error = "La contraseña solo puede contener letras, números y los siguientes caracteres especiales: @ # $ % ^ & *";
         } else {
-            $error = "Error al registrar el usuario.";
+            // Hash de la contraseña
+            $hash_contrasena = password_hash($contrasena, PASSWORD_DEFAULT);
+
+            // Preparar la consulta SQL para verificar si el usuario ya existe
+            $sql_verificar = $conexion->prepare("SELECT id FROM usuarios WHERE nombre_usuario = ?");
+            $sql_verificar->execute([$nombre_usuario]);
+            $resultado_verificar = $sql_verificar->fetch(PDO::FETCH_ASSOC);
+
+            if ($resultado_verificar) {
+                // Si el usuario ya existe, mostrar un mensaje de error
+                $error = "El usuario ya existe.";
+            } else {
+                // Preparar la consulta SQL para insertar el usuario en la base de datos
+                $sql_insertar = $conexion->prepare("INSERT INTO usuarios (nombre_usuario, contrasena) VALUES (?, ?)");
+
+                // Ejecutar la consulta con los valores correspondientes
+                if ($sql_insertar->execute([$nombre_usuario, $hash_contrasena])) {
+                    $success = "Usuario registrado correctamente.";
+                } else {
+                    $error = "Error al registrar el usuario.";
+                }
+            }
         }
     }
 }
@@ -57,14 +73,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         Registro de Usuario
                     </div>
                     <div class="card-body" style="background-color: #f0f0f0;"> <!-- Color de fondo para el cuerpo del formulario -->
-                        <?php if ($error): ?>
+                        <?php if ($error) : ?>
                             <div class="alert alert-danger" role="alert">
-                                Error: <?php echo $error; ?>
+                                <?php echo $error; ?>
                             </div>
                         <?php endif; ?>
-                        <?php if ($success): ?>
+                        <?php if ($success) : ?>
                             <div class="alert alert-success" role="alert">
-                                Éxito: <?php echo $success; ?>
+                                <?php echo $success; ?>
                             </div>
                         <?php endif; ?>
                         <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
@@ -87,4 +103,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </body>
 
 </html>
-
