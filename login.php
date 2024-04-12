@@ -1,6 +1,10 @@
 <?php
 // Iniciar la sesión al comienzo de cada página
-session_start(); 
+session_start();
+// Aplicar configuraciones de seguridad de sesión
+//ini_set('session.cookie_secure', 1);
+//ini_set('session.cookie_httponly', 1);
+//ini_set('session.gc_maxlifetime', 1800); // Tiempo de expiración de sesión en 30 minutos
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Incluir el archivo de conexión
     require_once 'conexion.php';
@@ -43,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Si se supera el límite de intentos fallidos, establecer el bloqueo temporal
                 if ($intentos_fallidos >= 2) {
                     // Bloquear la cuenta durante 30 minutos
-                    $bloqueo_temporal = date('Y-m-d H:i:s', strtotime('+30 minutes')); 
+                    $bloqueo_temporal = date('Y-m-d H:i:s', strtotime('+30 minutes'));
 
                     $sql_block = $conexion->prepare("UPDATE usuarios SET bloqueo_temporal = ? WHERE id = ?");
                     //ejecuta la consulta preparada previamente con PDO
@@ -81,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
             <div class="mb-3">
                 <label for="nombre_usuario" class="form-label mt-4">Nombre de usuario</label>
-                <input type="text" class="form-control" id="nombre_usuario" name="nombre_usuario" required>
+                <input type="text" class="form-control" id="nombre_usuario" name="nombre_usuario" value="ValorPredeterminado" required>
             </div><br>
             <div class="mb-3">
                 <label for="contrasena" class="form-label mt-4">Contraseña</label>
@@ -93,4 +97,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </body>
 
 </html>
-
