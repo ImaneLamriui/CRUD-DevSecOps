@@ -2,7 +2,8 @@
 require_once 'conexion.php';
 
 session_start(); // Iniciar la sesión si aún no está iniciada
-
+// Configurar la codificación de caracteres
+header('Content-Type: text/html; charset=UTF-8');
 // Validar la URL de redirección si existe el parámetro "redirect"
 if (isset($_GET['redirect'])) {
     $redirect_url = $_GET['redirect'];
