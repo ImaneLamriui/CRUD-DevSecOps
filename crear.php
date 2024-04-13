@@ -75,29 +75,29 @@
           </div>
 
           <?php
-require_once 'conexion.php';
+          require_once 'conexion.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nombre = htmlspecialchars($_POST['nombre']);
-    $nombre_corto = htmlspecialchars($_POST['nombre_corto']);
-    $descripcion = htmlspecialchars($_POST['descripcion']);
-    $pvp = htmlspecialchars($_POST['pvp']);
-    $familia = htmlspecialchars($_POST['familia']);
+          if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $nombre = htmlspecialchars($_POST['nombre']);
+            $nombre_corto = htmlspecialchars($_POST['nombre_corto']);
+            $descripcion = htmlspecialchars($_POST['descripcion']);
+            $pvp = htmlspecialchars($_POST['pvp']);
+            $familia = htmlspecialchars($_POST['familia']);
 
-    $consulta = $conexion->prepare("INSERT INTO productos (nombre, nombre_corto, descripcion, pvp, familia) VALUES (?, ?, ?, ?, ?)");
-    $consulta->execute([$nombre, $nombre_corto, $descripcion, $pvp, $familia]);
+            $consulta = $conexion->prepare("INSERT INTO productos (nombre, nombre_corto, descripcion, pvp, familia) VALUES (?, ?, ?, ?, ?)");
+            $consulta->execute([$nombre, $nombre_corto, $descripcion, $pvp, $familia]);
 
-    if ($consulta->rowCount() > 0) {
-        echo "Registro agregado correctamente.";
-        $_SESSION['mensaje'] = "Producto creado correctamente.";
-        echo "<script>alert('Producto creado correctamente.'); window.location.href='listado.php';</script>";
-    } else {
-        echo "Error al agregar el registro.";
-        $_SESSION['mensaje'] = "Error al crear el producto.";
-        echo "<script>alert('Error al crear el producto.'); window.location.href='listado.php';</script>";
-    }
-}
-?>
+            if ($consulta->rowCount() > 0) {
+              echo "Registro agregado correctamente.";
+              $_SESSION['mensaje'] = "Producto creado correctamente.";
+              echo "<script>alert('Producto creado correctamente.'); window.location.href='listado.php';</script>";
+            } else {
+              echo "Error al agregar el registro.";
+              $_SESSION['mensaje'] = "Error al crear el producto.";
+              echo "<script>alert('Error al crear el producto.'); window.location.href='listado.php';</script>";
+            }
+          }
+          ?>
 
     </form>
 
