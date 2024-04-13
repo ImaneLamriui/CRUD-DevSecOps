@@ -4,7 +4,7 @@ session_start(); // Iniciar la sesión al comienzo de cada página
 // Verificar si el usuario ha iniciado sesión
 if (!isset($_SESSION['nombre_usuario'])) {
     // Si el usuario no ha iniciado sesión, redirigirlo a la página de inicio de sesión
-    header("Location: iniciar_sesion.php");
+    header("Location: index.php");
     exit();
 }
 
@@ -17,7 +17,7 @@ if (isset($_GET['logout']) && $_GET['logout'] == 1) {
     // Destruir la sesión
     session_destroy();
     // Redirigir al usuario a la página de inicio de sesión
-    header("Location: login.php");
+    header("Location: index.php");
     exit();
 }
 ?>
