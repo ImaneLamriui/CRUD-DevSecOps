@@ -40,7 +40,9 @@ CREATE TABLE IF NOT EXISTS stocks (
 CREATE TABLE IF NOT EXISTS usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre_usuario VARCHAR(50) NOT NULL,
-    contrasena VARCHAR(255) NOT NULL
+    contrasena VARCHAR(255) NOT NULL,
+    intentos_fallidos int NOT NULL,
+    bloqueo_temporal datetime NOT NULL
 );
 
 -- Tabla familias
