@@ -43,6 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Ejecutar la consulta con los valores correspondientes
                 if ($sql_insertar->execute([$nombre_usuario, $hash_contrasena])) {
                     $success = "Usuario registrado correctamente.";
+                    header("Location: index.php");
                 } else {
                     $error = "Error al registrar el usuario.";
                 }
