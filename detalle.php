@@ -19,7 +19,14 @@
 
     <div class="container-sm w-100">
         <?php
+        session_start();
 
+        // Verificar si el usuario ha iniciado sesión
+        if (!isset($_SESSION['nombre_usuario'])) {
+            // Si no ha iniciado sesión, redirigir a la página de inicio de sesión
+            header("Location: index.php");
+            exit();
+        }
         require_once 'conexion.php';
 
         if ($_GET) {
