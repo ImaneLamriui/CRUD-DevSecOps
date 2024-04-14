@@ -1,4 +1,11 @@
 <?php
+// Verificar si el archivo ha sido incluido desde otro archivo PHP
+if (!isset($included)) {
+  // Si se está accediendo directamente desde la URL, redirigir a la página de inicio o mostrar un mensaje de error
+  header("Location: index.php"); // Cambia "index.php" por la página a la que quieres redirigir
+  exit();
+}
+
 require_once 'conexion.php';
 //Obtenerlo con GET o REQUEST
 if ($_GET) {
