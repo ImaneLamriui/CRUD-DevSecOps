@@ -1,6 +1,13 @@
 <?php
 // Incluir el archivo de conexión
 require_once 'conexion.php';
+// Verificar si el usuario ya ha iniciado sesión
+session_start();
+if (!isset($_SESSION['nombre_usuario'])) {
+    // Si no ha iniciado sesión, redirigir a la página de inicio (index.php)
+    header("Location: index.php");
+    exit();
+}
 
 // Definir las variables $error y $success para evitar errores de "undefined variable"
 $error = "";
@@ -11,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //trim() eliminar los espacios en blanco adicionales alrededor del nombre de usuario y la contraseña
     $nombre_usuario = htmlspecialchars(trim($_POST['nombre_usuario']));
     $contrasena = htmlspecialchars(trim($_POST['contrasena']));
-    
+
 
     // Validar longitud mínima y máxima para el nombre de usuario y la contraseña
     if (strlen($nombre_usuario) < 3 || strlen($nombre_usuario) > 20) {
