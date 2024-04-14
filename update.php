@@ -1,9 +1,15 @@
 <?php
+session_start();
+
+// Verificar si el usuario ha iniciado sesión
+if (!isset($_SESSION['nombre_usuario'])) {
+    // Si no ha iniciado sesión, redirigir a la página de inicio de sesión
+    header("Location: index.php");
+    exit();
+}
 require_once 'conexion.php';
 
 session_start(); // Iniciar la sesión si aún no está iniciada
-// Configurar la codificación de caracteres
-header('Content-Type: text/html; charset=UTF-8');
 // Validar la URL de redirección si existe el parámetro "redirect"
 if (isset($_GET['redirect'])) {
     $redirect_url = $_GET['redirect'];
@@ -63,8 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <title>update.php</title>
 </head>
 
