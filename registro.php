@@ -2,12 +2,7 @@
 // Incluir el archivo de conexión
 require_once 'conexion.php';
 // Verificar si el usuario ya ha iniciado sesión
-session_start();
-if (!isset($_SESSION['nombre_usuario'])) {
-    // Si no ha iniciado sesión, redirigir a la página de inicio (index.php)
-    header("Location: index.php");
-    exit();
-}
+
 
 // Definir las variables $error y $success para evitar errores de "undefined variable"
 $error = "";
@@ -71,16 +66,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body style="background-color: #f8f9fa;"> <!-- Color de fondo para todo el cuerpo del documento -->
+<body style="padding: 70px; background-color: #f8f9fa;"> <!-- Color de fondo para todo el cuerpo del documento -->
 
     <div class="container mt-5">
         <div class="row justify-content-center">
-            <div class="col-md-6">
+            <div class="col-sm-12 col-md-6 align-items-center">
                 <div class="card">
-                    <div class="card-header">
-                        Registro de Usuario
+                    <div class="card-header text-center" style="font-weight: 600; font-size:larger;">
+                        Registro de usuario
                     </div>
-                    <div class="card-body" style="background-color: #f0f0f0;"> <!-- Color de fondo para el cuerpo del formulario -->
+                    <div class="card-body pb-0" style="background-color: #f0f0f0;"> <!-- Color de fondo para el cuerpo del formulario -->
                         <?php if ($error) : ?>
                             <div class="alert alert-danger" role="alert">
                                 <?php echo $error; ?>
@@ -100,7 +95,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <label for="contrasena" class="form-label">Contraseña:</label>
                                 <input type="password" class="form-control" id="contrasena" name="contrasena" required>
                             </div>
-                            <button type="submit" class="btn btn-primary">Registrarse</button>
+                            <p style="text-align:center;">
+                            <button type="submit"  class="text-center btn btn-primary">Registrarse</button></p>
                         </form>
                     </div>
                 </div>
