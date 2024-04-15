@@ -79,27 +79,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Iniciar sesión</title>
 </head>
 
-<body class="bg-light">
-    <div class="container-sm w-50 mt-5" style="max-width: 500px" ;>
+<body class="bg-light" style="padding: 70px;">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-6 col-sm-12" style="max-width: 500px;">
+                <div class="card" style="height: 400px;">
+                    <div class="card-header text-center" style="font-weight: 600; font-size:larger;">
+                        Iniciar sesión
+                    </div>
+                    <div class="card-body pb-0 text-start" style="background-color: #f0f0f0;">
+                        <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                            <div class="mb-3">
+                                <label for="nombre_usuario" class="form-label" style="font-weight: 400" ;>Nombre de usuario</label>
+                                <input type="text" class="form-control" id="nombre_usuario" name="nombre_usuario" value="" required>
+                            </div><br>
+                            <div class="mb-3">
+                                <label for="contrasena" class="form-label" style="font-weight: 400" ;>Contraseña</label>
+                                <input type="password" class="form-control" id="contrasena" name="contrasena" required>
+                            </div>
+                            <p style="text-align:center;">
+                                <button type="submit" class="mt-5 text-center btn btn-primary">Iniciar sesión</button>
+                            </p>
+                        </form>
 
+                        <span class="text-center" style="font-weight: 400" ;><p class="text-center;">¿Aún no te has registrado? <a href="registro.php" style="font-weight: 400;">Registrate</a></p></span>
 
-        <h2 class="text-center">Iniciar sesión</h2>
-        <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-            <div class="mb-3">
-                <label for="nombre_usuario" class="form-label mt-4" style="font-weight: 400" ;>Nombre de usuario</label>
-                <input type="text" class="form-control" id="nombre_usuario" name="nombre_usuario" value="" required>
-            </div><br>
-            <div class="mb-3">
-                <label for="contrasena" class="form-label mt-4" style="font-weight: 400" ;>Contraseña</label>
-                <input type="password" class="form-control" id="contrasena" name="contrasena" required>
+                    </div>
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary mt-5">Iniciar sesión</button>
-
-        </form>
-
-        <span class="text-footer" style="font-weight: 400" ;>¿Aún no te has registrado? <a href="registro.php" style="font-weight: 400" ;>Registrate</a></span>
-
-    </div>
+        </div>
     </div>
 </body>
 
