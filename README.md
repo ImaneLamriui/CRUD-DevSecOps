@@ -1,11 +1,8 @@
-# CRUD-DEVOPSEC
-### Combining aspects of Software Development (Dev), Security (Sec), and Operations (Ops) into a coherent and collaborative approach.
-#### Proyecto Final Del Curso de Especialización en Ciberseguridad (en entornos TIs)--ETHICAL HACKING Module
-#### http://crud-devsecops.infinityfreeapp.com/
-This CRUD application manages electronic component sales. It has been fortified with sanitization measures, parameterized queries, and other security enhancements to mitigate common vulnerabilities and risks associated with SQL Injection, Cross-Site Scripting (XSS), Open HTTP Redirect Vulnerability, and brute force attacks.
-While the code has undergone some security improvements, further enhancements may be needed. Continuous vigilance and security assessments are recommended.
+CRUD-DEVOPSEC
 
-###### Although extensively commenting code is common practice in educational contexts for explanatory purposes, it's important to note that in real-world applications, excessive commenting can potentially introduce security risks. In professional environments, emphasizing clear and descriptive naming conventions for variables and functions, rather than relying heavily on comments, is crucial for security.
+Combinando aspectos del Desarrollo de Software (Dev), la Seguridad (Sec) y las Operaciones (Ops) en un enfoque coherente y colaborativo.
 
+Esta aplicación CRUD gestiona la venta de componentes electrónicos. Ha sido reforzada con medidas de saneamiento, consultas parametrizadas y otras mejoras de seguridad para mitigar vulnerabilidades y riesgos comunes asociados con la inyección SQL, Cross-Site Scripting (XSS), vulnerabilidades de redirección HTTP abierta y ataques de fuerza bruta.
+Aunque el código ha sido sometido a algunas mejoras de seguridad, pueden ser necesarias mejoras adicionales. Se recomienda una vigilancia continua y evaluaciones de seguridad periódicas.
 
-
+Aunque comentar extensamente el código es una práctica común en contextos educativos con fines explicativos, es importante señalar que, en aplicaciones del mundo real, un exceso de comentarios puede introducir riesgos de seguridad. En entornos profesionales, es crucial priorizar convenciones de nombres claras y descriptivas para variables y funciones, en lugar de depender en exceso de los comentarios.
